@@ -1,0 +1,3 @@
+C:/Users/mikro/CLionProjects/MonkeySpace/cmake-build-debug/CMakeFiles/MonkeySpace.dir
+C:/Users/mikro/CLionProjects/MonkeySpace/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/mikro/CLionProjects/MonkeySpace/cmake-build-debug/CMakeFiles/rebuild_cache.dir
