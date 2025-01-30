@@ -13,6 +13,8 @@ set(SOURCES
         source/types/Quaternion.cpp
         include/types/Quaternion.h
         include/types/Vector3.h
+        source/engine/MonkeyGalaxy.cpp
+        include/engine/MonkeyGalaxy.h
 )
 
 add_executable(MonkeySpace ${SOURCES})

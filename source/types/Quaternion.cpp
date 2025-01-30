@@ -3,6 +3,8 @@
 #include <iostream>
 #include <valarray>
 
+using namespace Types;
+
 void Quaternion::normalize() {
     float norm = std::sqrt(w * w + x * x + y * y + z * z);
     if (norm > 0.0f) {

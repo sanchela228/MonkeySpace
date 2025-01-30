@@ -4,6 +4,9 @@
 #include <vector>
 #include <cmath>
 
+using namespace Utils;
+using namespace Types;
+
 Vector3 Vector3::generate_random_position(const Vector3& size) {
     return {
         Random::random_float(0, size.x),

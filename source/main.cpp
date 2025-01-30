@@ -8,6 +8,8 @@
 #include "types/Vector3.h"
 #include "utils/Random.h"
 
+using namespace Utils;
+using namespace Types;
 
 class Universe {
 
@@ -143,7 +145,7 @@ int main() {
                 system.get_name() + ":E" + std::to_string(e),
                 &system,
                 &star,
-                Random::random_from_enum(std::vector {
+                Utils::Random::random_from_enum(std::vector {
                     MonkeyGalaxy::EntityType::Asteroid,
                     MonkeyGalaxy::EntityType::Planet,
                     MonkeyGalaxy::EntityType::GasGiant,
