@@ -5,64 +5,13 @@
 #include <vector>
 #include <random>
 
-// Coordinates calculate MonkeyGalaxy_center -> EntitiesSystem -> EntitiesSystem_center -> Entity -> Entity_center
+#include "types/Vector3.h"
+#include "utils/Random.h"
 
-float random_float(const float min, const float max) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> dis(min, max);
-    return dis(gen);
-}
 
-int random_int(const int min, const int max) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dis(min, max);
-    return dis(gen);
-}
-
-struct Vector3 {
-    float x, y, z;
-    Vector3() = default;
-    Vector3(const float x_, const float y_, const float z_)
-        : x(x_), y(y_), z(z_) {}
-    static Vector3 generate_random_position(const Vector3& size) {
-        return {
-            random_float(0, size.x),
-            random_float(0, size.y),
-            random_float(0, size.z)
-        };
-    }
-    static Vector3 generate_random_position_near(const Vector3& position, const Vector3& size, float max_distance) {
-
-        float theta = random_float(0, 2 * M_PI);
-        float phi = random_float(0, M_PI);
-        float distance = random_float(0, max_distance);
-
-        float dx = distance * sin(phi) * cos(theta);
-        float dy = distance * sin(phi) * sin(theta);
-        float dz = distance * cos(phi);
-
-        dx = std::max(-size.x / 2, std::min(size.x / 2, dx));
-        dy = std::max(-size.y / 2, std::min(size.y / 2, dy));
-        dz = std::max(-size.z / 2, std::min(size.z / 2, dz));
-
-        return {
-            position.x + dx,
-            position.y + dy,
-            position.z + dz
-        };
-    }
-};
-
-struct Quaternion {
+class Universe {
 
 };
-
-
-
-
-class Universe {};
 
 
 
@@ -184,7 +133,7 @@ int main() {
 
         constexpr int count_max_entities = 50;
 
-        for(int e {0}; e < random_int(1, count_max_entities); e++)
+        for(int e {0}; e < Random::random_int(1, count_max_entities); e++)
         {
             const Vector3 entity_size {100.0f, 100.0f, 100.0f};
 
@@ -194,7 +143,12 @@ int main() {
                 system.get_name() + ":E" + std::to_string(e),
                 &system,
                 &star,
-                MonkeyGalaxy::get_random_entity_type()
+                Random::random_from_enum(std::vector {
+                    MonkeyGalaxy::EntityType::Asteroid,
+                    MonkeyGalaxy::EntityType::Planet,
+                    MonkeyGalaxy::EntityType::GasGiant,
+                    MonkeyGalaxy::EntityType::Station
+                })
             );
 
             system.add_entity(&entity);
@@ -207,12 +161,12 @@ int main() {
             std::cout << "|   Direction: " + MonkeyGalaxy::mapDirectionTypeNames[entity.get_direction_type()] << std::endl;
             std::cout << "_____" << std::endl;
 
-            if (random_int(0, 2) > 0) {
+            if (Random::random_int(0, 2) > 0) {
                 constexpr int max_entities_children = 5;
                 const Vector3 entity_child_size {10.0f, 10.0f, 10.0f};
 
                 std::cout << "    | #Generating child entity: " << std::endl;
-                for(int c {0}; c < random_int(1, max_entities_children); c++)
+                for(int c {0}; c < Random::random_int(1, max_entities_children); c++)
                 {
                     auto entity_child = MonkeyGalaxy::Entity(
                         Vector3::generate_random_position_near(entity.get_position(), entity_size, 50.0f),
