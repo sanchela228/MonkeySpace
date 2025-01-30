@@ -15,6 +15,8 @@ set(SOURCES
         include/types/Vector3.h
         source/engine/MonkeyGalaxy.cpp
         include/engine/MonkeyGalaxy.h
+        include/engine/models/Entity.h
+        include/engine/models/System.h
 )
 
 add_executable(MonkeySpace ${SOURCES})
